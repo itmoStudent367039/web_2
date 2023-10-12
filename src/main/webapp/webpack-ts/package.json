@@ -1,0 +1,21 @@
+{
+  "name": "webpack-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Helper.ts",
+  "scripts": {
+    "start": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.2.2",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "sweetalert2": "^11.7.32"
+  }
+}
