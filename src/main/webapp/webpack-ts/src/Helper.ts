@@ -1,7 +1,7 @@
 import { InputValidator } from "./InputValidator";
 import { TableWorker } from "./TableWorker";
 import { Graph } from "./Graph";
-import { alertSuccess } from "./SweetAlert";
+import {alertError, alertSuccess} from "./SweetAlert";
 import { CacheWorker } from "./CacheWorker";
 
 const graph = new Graph();
@@ -14,7 +14,7 @@ export async function clearTable() {
     {
       invalidate: "session",
     },
-    "",
+    "./controller",
     "DELETE",
   );
   if (response && response.ok) {
@@ -30,7 +30,7 @@ export async function clearTable() {
       return;
     }
   }
-  await alertSuccess("Table wasn't cleared");
+  await alertError("Table wasn't cleared");
 }
 
 export async function addRadiusChangeListener() {
@@ -66,7 +66,7 @@ async function sendPoint(x: string, y: string, r: string) {
       y: y,
       r: r,
     },
-    "",
+    "./controller",
     "GET",
   );
   if (response && response.ok) {

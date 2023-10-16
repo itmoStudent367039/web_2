@@ -1,6 +1,7 @@
 <%@ page import="com.example.utils.JsonWorker" %>
 <%@ page import="com.example.models.Point" %>
 <%@ page import="java.util.Enumeration" %>
+<%@ page import="com.example.utils.Rounder" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     Enumeration<String> names = session.getAttributeNames();
@@ -15,11 +16,11 @@
     </td>
     <td><%=point.isInRange()%>
     </td>
-    <td><%=point.getX()%>
+    <td><%=Rounder.round(point.getX())%>
     </td>
-    <td><%=point.getY()%>
+    <td><%=Rounder.round(point.getY())%>
     </td>
-    <td><%=point.getRadius()%>
+    <td><%=Rounder.round(point.getRadius())%>
     </td>
 </tr>
 

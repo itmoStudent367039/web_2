@@ -6,16 +6,17 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
 @Setter
+@EqualsAndHashCode
 public class Point {
     private double radius;
     private double x;
@@ -43,16 +44,4 @@ public class Point {
         Validator.validateRadius(radius);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
-        return Double.compare(radius, point.radius) == 0 && Double.compare(x, point.x) == 0 && Double.compare(y, point.y) == 0 && inRange == point.inRange && Double.compare(requestTime, point.requestTime) == 0 && Objects.equals(currentTime, point.currentTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(radius, x, y, inRange, currentTime, requestTime);
-    }
 }
