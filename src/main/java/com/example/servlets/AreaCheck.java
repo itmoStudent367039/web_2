@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @WebServlet("/area-check")
 public class AreaCheck extends HttpServlet {
@@ -28,7 +27,6 @@ public class AreaCheck extends HttpServlet {
             HttpSession session = req.getSession();
             String pointHash = String.valueOf(point.hashCode());
             session.setAttribute(pointHash, JsonWorker.toJSON(point));
-
         } catch (IOException | Validator.InvalidArgumentException | NumberFormatException e) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         }

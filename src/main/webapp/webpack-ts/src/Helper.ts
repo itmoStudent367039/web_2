@@ -17,7 +17,7 @@ export async function clearTable() {
     "",
     "DELETE",
   );
-  if (response) {
+  if (response && response.ok) {
     const info = await response.json();
     if (info?.status === "successfully") {
       await cacheWorker.clearCache();
@@ -27,10 +27,10 @@ export async function clearTable() {
         graph.redrawAll(radius);
       }
       await alertSuccess("Table was cleared");
-    } else {
-      await alertSuccess("Table wasn't cleared");
+      return;
     }
   }
+  await alertSuccess("Table wasn't cleared");
 }
 
 export async function addRadiusChangeListener() {
@@ -60,7 +60,7 @@ export async function addCheckButtonListener() {
 }
 
 async function sendPoint(x: string, y: string, r: string) {
-  const data: Response | null = await sendRequest(
+  const response: Response | null = await sendRequest(
     {
       x: x,
       y: y,
@@ -69,8 +69,8 @@ async function sendPoint(x: string, y: string, r: string) {
     "",
     "GET",
   );
-  if (data) {
-    const info: string | null = await data.text();
+  if (response && response.ok) {
+    const info: string | null = await response.text();
     if (info) {
       tableWorker.innerRows(info);
       const radius = findAndReturnSelectedRadius();
@@ -132,8 +132,13 @@ document
       (7 / graph.SIZE) *
       (graph.SIZE / 2 - event.clientY + rect.top)
     ).toString();
-    const radius: string = findAndReturnSelectedRadius().toString();
-    sendPoint(x, y, radius).then();
+
+    const radius: string = findAndReturnSelectedRadius()?.toString();
+    const regex: RegExp = inputValidator.FROM_MINUS_THREE_TILL_THREE;
+
+    if (radius && regex.test(x) && regex.test(y)) {
+      sendPoint(x, y, radius).then();
+    }
   });
 
 document

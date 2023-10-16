@@ -2,7 +2,6 @@
 <%@ page import="com.example.models.Point" %>
 <%@ page import="java.util.Enumeration" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-
 <%
     Enumeration<String> names = session.getAttributeNames();
     while (names.hasMoreElements()) {

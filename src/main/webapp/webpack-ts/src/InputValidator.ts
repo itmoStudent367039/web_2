@@ -1,7 +1,7 @@
 import { alertAttention } from "./SweetAlert";
 
 export class InputValidator {
-  private FROM_MINUS_THREE_TILL_THREE: RegExp = new RegExp(
+  public FROM_MINUS_THREE_TILL_THREE: RegExp = new RegExp(
     /^-?(?:3(?:\.0+)?|[0-2](?:\.[0-9]+)?|\.[0-9]+)$/,
   );
   private xSelector: HTMLInputElement | null;

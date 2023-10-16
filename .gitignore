@@ -38,3 +38,6 @@ build/
 .DS_Store
 # Project exclude paths
 /src/main/webapp/webpack-ts/dist/
+/src/main/webapp/webpack-ts/node_modules/
+/mvnw
+/mvnw.cmd
