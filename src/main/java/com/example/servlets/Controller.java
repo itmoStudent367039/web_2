@@ -7,8 +7,10 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import lombok.NoArgsConstructor;
 
 @WebServlet("/controller")
+@NoArgsConstructor
 public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -26,7 +28,6 @@ public class Controller extends HttpServlet {
 
                 dispatcher = req.getRequestDispatcher("/index.jsp");
                 dispatcher.forward(req, resp);
-
             } else {
 
                 dispatcher = req.getRequestDispatcher("/area-check");

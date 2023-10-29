@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -25,7 +24,7 @@
             </tr>
             </thead>
             <tbody id="tableData">
-
+            <jsp:include page="check-result.jsp"/>
             </tbody>
         </table>
     </div>

@@ -2,12 +2,10 @@ import { InputValidator } from "./InputValidator";
 import { TableWorker } from "./TableWorker";
 import { Graph } from "./Graph";
 import {alertError, alertSuccess} from "./SweetAlert";
-import { CacheWorker } from "./CacheWorker";
 
 const graph = new Graph();
 const tableWorker = new TableWorker();
 const inputValidator = new InputValidator();
-const cacheWorker = new CacheWorker();
 
 export async function clearTable() {
   const response: Response | null = await sendRequest(
@@ -20,7 +18,6 @@ export async function clearTable() {
   if (response && response.ok) {
     const info = await response.json();
     if (info?.status === "successfully") {
-      await cacheWorker.clearCache();
       tableWorker.deleteAllRows();
       const radius: number | null = findAndReturnSelectedRadius();
       if (radius !== null) {
@@ -82,7 +79,7 @@ async function sendPoint(x: string, y: string, r: string) {
   }
 }
 
-function drawAllPoints(canvasPrinter: Graph) {
+function drawAllPoints(canvasPrinter: Graph): void {
   const data = tableWorker.getData();
   data.forEach((point) => {
     canvasPrinter.drawPoint(
@@ -113,13 +110,6 @@ async function sendRequest(
   return null;
 }
 
-async function saveAllPoints() {
-  await cacheWorker.clearCache();
-  await cacheWorker.putAllPoints(tableWorker.getPointsAsXml(), "./data.html");
-}
-
-window.addEventListener("beforeunload", saveAllPoints);
-
 document
   .getElementById("graph")
   .addEventListener("click", async function (event) {
@@ -137,7 +127,7 @@ document
     const regex: RegExp = inputValidator.FROM_MINUS_THREE_TILL_THREE;
 
     if (radius && regex.test(x) && regex.test(y)) {
-      sendPoint(x, y, radius).then();
+      await sendPoint(x, y, radius);
     }
   });
 
@@ -152,11 +142,6 @@ document
   .addEventListener("change", addRadiusChangeListener);
 
 document.addEventListener("DOMContentLoaded", async function () {
-  const tBody = await cacheWorker.getAllCachedPoints();
-  if (tBody) {
-    tableWorker.innerRows(tBody);
-  }
-
   const radius: number | null = findAndReturnSelectedRadius();
   if (radius !== null) {
     graph.redrawAll(radius);

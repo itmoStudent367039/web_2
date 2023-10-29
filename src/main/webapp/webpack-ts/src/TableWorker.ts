@@ -11,10 +11,6 @@ export class TableWorker {
     this.tBody.innerHTML = tableRows;
   }
 
-  getPointsAsXml(): string {
-    return this.tBody.innerHTML;
-  }
-
   getData() {
     let rows = document.querySelector("table").rows;
     const array = [];
