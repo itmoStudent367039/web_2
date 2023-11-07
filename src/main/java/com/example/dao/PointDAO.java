@@ -12,9 +12,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class PointDAO {
-    private final List<Point> pointList = new ArrayList<>();
+  private final List<Point> pointList = new ArrayList<>();
 
-    public boolean addPoint(Point point) {
-        return pointList.add(point);
-    }
+  public boolean addPoint(Point point) {
+    return pointList.add(point);
+  }
 }

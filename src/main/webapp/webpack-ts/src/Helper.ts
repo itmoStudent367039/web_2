@@ -1,7 +1,7 @@
 import { InputValidator } from "./InputValidator";
 import { TableWorker } from "./TableWorker";
 import { Graph } from "./Graph";
-import {alertError, alertSuccess} from "./SweetAlert";
+import { alertError, alertSuccess } from "./SweetAlert";
 
 const graph = new Graph();
 const tableWorker = new TableWorker();

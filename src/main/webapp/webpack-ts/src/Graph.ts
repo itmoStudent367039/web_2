@@ -40,10 +40,7 @@ export class Graph {
       this.SIZE / 2 - (r / 2) * pointInPixels,
       this.SIZE / 2 + r * pointInPixels,
     );
-    this.ctx.lineTo(
-      this.SIZE / 2 - (r / 2) * pointInPixels,
-      this.SIZE / 2,
-    );
+    this.ctx.lineTo(this.SIZE / 2 - (r / 2) * pointInPixels, this.SIZE / 2);
     this.ctx.lineTo(this.SIZE / 2, this.SIZE / 2);
     this.ctx.fill();
 
@@ -75,62 +72,61 @@ export class Graph {
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
     this.ctx.fillText(
-        `${max_r}`,
-        this.SIZE / 2 + pointInPixels * max_r,
-        this.SIZE / 2 - this.TEXT_MARGIN,
+      `${max_r}`,
+      this.SIZE / 2 + pointInPixels * max_r,
+      this.SIZE / 2 - this.TEXT_MARGIN,
     );
     this.ctx.fillText(
-        `${-max_r}`,
-        this.SIZE / 2 - pointInPixels * max_r,
-        this.SIZE / 2 - this.TEXT_MARGIN,
+      `${-max_r}`,
+      this.SIZE / 2 - pointInPixels * max_r,
+      this.SIZE / 2 - this.TEXT_MARGIN,
     );
     this.ctx.fillText(
-        `${max_r}`,
-        this.SIZE / 2 + this.TEXT_MARGIN,
-        this.SIZE / 2 - pointInPixels * max_r,
+      `${max_r}`,
+      this.SIZE / 2 + this.TEXT_MARGIN,
+      this.SIZE / 2 - pointInPixels * max_r,
     );
     this.ctx.fillText(
-        `${-max_r}`,
-        this.SIZE / 2 + this.TEXT_MARGIN,
-        this.SIZE / 2 + pointInPixels * max_r,
+      `${-max_r}`,
+      this.SIZE / 2 + this.TEXT_MARGIN,
+      this.SIZE / 2 + pointInPixels * max_r,
     );
-
 
     this.ctx.beginPath();
     this.ctx.lineWidth = this.LINE_WIDTH;
     this.ctx.moveTo(
-        this.SIZE / 2 - pointInPixels * max_r,
-        this.SIZE / 2 + this.TEXT_LINE_HEIGHT,
+      this.SIZE / 2 - pointInPixels * max_r,
+      this.SIZE / 2 + this.TEXT_LINE_HEIGHT,
     );
     this.ctx.lineTo(
-        this.SIZE / 2 - pointInPixels * max_r,
-        this.SIZE / 2 - this.TEXT_LINE_HEIGHT,
+      this.SIZE / 2 - pointInPixels * max_r,
+      this.SIZE / 2 - this.TEXT_LINE_HEIGHT,
     );
     this.ctx.moveTo(
-        this.SIZE / 2 + pointInPixels * max_r,
-        this.SIZE / 2 + this.TEXT_LINE_HEIGHT,
+      this.SIZE / 2 + pointInPixels * max_r,
+      this.SIZE / 2 + this.TEXT_LINE_HEIGHT,
     );
     this.ctx.lineTo(
-        this.SIZE / 2 + pointInPixels * max_r,
-        this.SIZE / 2 - this.TEXT_LINE_HEIGHT,
+      this.SIZE / 2 + pointInPixels * max_r,
+      this.SIZE / 2 - this.TEXT_LINE_HEIGHT,
     );
 
     this.ctx.moveTo(
-        this.SIZE / 2 + this.TEXT_LINE_HEIGHT,
-        this.SIZE / 2 - pointInPixels * max_r,
+      this.SIZE / 2 + this.TEXT_LINE_HEIGHT,
+      this.SIZE / 2 - pointInPixels * max_r,
     );
     this.ctx.lineTo(
-        this.SIZE / 2 - this.TEXT_LINE_HEIGHT,
-        this.SIZE / 2 - pointInPixels * max_r,
+      this.SIZE / 2 - this.TEXT_LINE_HEIGHT,
+      this.SIZE / 2 - pointInPixels * max_r,
     );
 
     this.ctx.moveTo(
-        this.SIZE / 2 + this.TEXT_LINE_HEIGHT,
-        this.SIZE / 2 + pointInPixels * max_r,
+      this.SIZE / 2 + this.TEXT_LINE_HEIGHT,
+      this.SIZE / 2 + pointInPixels * max_r,
     );
     this.ctx.lineTo(
-        this.SIZE / 2 - this.TEXT_LINE_HEIGHT,
-        this.SIZE / 2 + pointInPixels * max_r,
+      this.SIZE / 2 - this.TEXT_LINE_HEIGHT,
+      this.SIZE / 2 + pointInPixels * max_r,
     );
     this.ctx.stroke();
   }
@@ -145,13 +141,13 @@ export class Graph {
     this.ctx.moveTo(fromX, fromY);
     this.ctx.lineTo(toX, toY);
     this.ctx.lineTo(
-        toX - headLength * Math.cos(angle - Math.PI / 10),
-        toY - headLength * Math.sin(angle - Math.PI / 10),
+      toX - headLength * Math.cos(angle - Math.PI / 10),
+      toY - headLength * Math.sin(angle - Math.PI / 10),
     );
     this.ctx.moveTo(toX, toY);
     this.ctx.lineTo(
-        toX - headLength * Math.cos(angle + Math.PI / 10),
-        toY - headLength * Math.sin(angle + Math.PI / 10),
+      toX - headLength * Math.cos(angle + Math.PI / 10),
+      toY - headLength * Math.sin(angle + Math.PI / 10),
     );
     this.ctx.stroke();
   }

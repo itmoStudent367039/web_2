@@ -17,50 +17,49 @@ import java.time.LocalDateTime;
 
 @WebServlet("/area-check")
 public class AreaCheck extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        try {
-            double start = System.nanoTime();
-            int r = Integer.parseInt(req.getHeader("r"));
-            double x = Double.parseDouble(req.getHeader("x"));
-            double y = Double.parseDouble(req.getHeader("y"));
-            Point point = new Point(r, x, y, LocalDateTime.now(), (System.nanoTime() - start) / 1_000_000.0);
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    try {
+      double start = System.nanoTime();
+      int r = Integer.parseInt(req.getHeader("r"));
+      double x = Double.parseDouble(req.getHeader("x"));
+      double y = Double.parseDouble(req.getHeader("y"));
+      Point point =
+          new Point(r, x, y, LocalDateTime.now(), (System.nanoTime() - start) / 1_000_000.0);
 
-            HttpSession session = req.getSession();
-            this.addPointAndInitializeDAOIfEmpty(session, point);
-        } catch (Validator.InvalidArgumentException | NumberFormatException e) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
-        } catch (AddPointException e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-        }
-
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/check-result.jsp");
-        try {
-            dispatcher.forward(req, resp);
-        } catch (IOException | ServletException e) {
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-
+      HttpSession session = req.getSession();
+      this.addPointAndInitializeDAOIfEmpty(session, point);
+    } catch (Validator.InvalidArgumentException | NumberFormatException e) {
+      resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+    } catch (AddPointException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
-    private void addPointAndInitializeDAOIfEmpty(HttpSession session, Point point) throws AddPointException {
-        PointDAO pointDAO = (PointDAO) session.getAttribute("pointDAO");
+    RequestDispatcher dispatcher = req.getRequestDispatcher("/check-result.jsp");
+    try {
+      dispatcher.forward(req, resp);
+    } catch (IOException | ServletException e) {
+      resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+  }
 
-        if (pointDAO == null) {
-            pointDAO = new PointDAO();
-        }
+  private void addPointAndInitializeDAOIfEmpty(HttpSession session, Point point)
+      throws AddPointException {
+    PointDAO pointDAO = (PointDAO) session.getAttribute("pointDAO");
 
-        addPoint(point, pointDAO);
-        session.setAttribute("pointDAO", pointDAO);
+    if (pointDAO == null) {
+      pointDAO = new PointDAO();
     }
 
-    private void addPoint(Point point, PointDAO pointDAO) throws AddPointException {
-        boolean success = pointDAO.addPoint(point);
+    addPoint(point, pointDAO);
+    session.setAttribute("pointDAO", pointDAO);
+  }
 
-        if (!success) {
-            throw new AddPointException("point was not added to point storage");
-        }
+  private void addPoint(Point point, PointDAO pointDAO) throws AddPointException {
+    boolean success = pointDAO.addPoint(point);
 
+    if (!success) {
+      throw new AddPointException("point was not added to point storage");
     }
-
+  }
 }
